@@ -1,0 +1,23 @@
+Cache data Api:
+Create master data in cache
+---
+tags:
+    - Cache Data
+parameters:
+- in: body
+  name: request payload
+  description: json req
+  schema:
+    type: object
+    properties:
+      data_key:
+        type: string
+      data:
+        type: object
+responses:
+    '200':
+        description: "Success"
+    '500':
+        description: "Internal Server Error"
+    '422':
+        description: "Unprocessable Entity"

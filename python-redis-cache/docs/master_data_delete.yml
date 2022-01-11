@@ -1,0 +1,19 @@
+Cache data Api:
+Delete cache based on key
+---
+tags:
+    - Cache Data
+parameters:
+-
+    in: path
+    name: data_key
+    type: string
+    required: true
+
+responses:
+    '200':
+        description: "Success"
+    '500':
+        description: "Internal Server Error"
+    '404':
+        description: "Not Found"

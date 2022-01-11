@@ -1,0 +1,13 @@
+Cache data Api:
+Get all cache keys
+---
+tags:
+    - Cache Data
+
+responses:
+    '200':
+        description: "Success"
+    '500':
+        description: "Internal Server Error"
+    '422':
+        description: "Unprocessable Entity"

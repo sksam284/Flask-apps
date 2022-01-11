@@ -1,0 +1,17 @@
+Cache data Api:
+Get master data from cache based on key
+---
+tags:
+    - Cache Data
+parameters:
+-
+    in: path
+    name: data_key
+    type: string
+    required: true
+
+responses:
+    '200':
+        description: "Success"
+    '404':
+        description: "Not Found"

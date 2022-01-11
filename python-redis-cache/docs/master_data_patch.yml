@@ -1,0 +1,26 @@
+Cache data Api:
+Update master data in cache
+---
+tags:
+    - Cache Data
+parameters:
+-
+    in: path
+    name: data_key
+    type: string
+    required: true
+
+- in: body
+  name: request payload
+  description: json req
+  schema:
+    type: object
+responses:
+    '200':
+        description: "Success"
+    '500':
+        description: "Internal Server Error"
+    '422':
+        description: "Unprocessable Entity"
+    '404':
+      description: "Not Found"
