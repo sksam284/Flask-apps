@@ -11,14 +11,13 @@ def existing_key(resource_url: str):
     else:
         False
 
-def get_from_memcache(resource_url: str):
+def get_data_from_cache(resource_url: str):
     """ Get Resource from Cache specifying the exact key"""
     from app import app_redis_handler
     key = f'{resource_url}'
     if not existing_key(key):
         return None
-    #if not app_redis_handler.exists(key):
-    #    return None
+
     data_str = app_redis_handler.get(key)
     if data_str:
         try:
@@ -30,8 +29,8 @@ def get_from_memcache(resource_url: str):
     return None
 
 
-def get_data_from_cache(cache_key: str):
-    cache_result = get_from_memcache(resource_url=cache_key)
+def get_data(cache_key: str):
+    cache_result = get_data_from_cache(cache_key)
     return cache_result.get("data", None) if cache_result else None
 
 
@@ -43,7 +42,7 @@ def get_cache_data_from_pattern(resource_url_pattern: str):
     return keys
 
 
-def put_to_memcache(resource_url: str, data: dict, retries=3, expiry=None):
+def write_data_to_cache(resource_url: str, data: dict, retries=3, expiry=None):
     """ Put Resource into Cache specifying the exact key"""
     from app import app_redis_handler
     key = f'{resource_url}'
@@ -59,7 +58,7 @@ def put_to_memcache(resource_url: str, data: dict, retries=3, expiry=None):
             logger.error(f'Redis Insertion Failed for Key {resource_url}, Data: {data}')
             return
         logger.info(f'Re-Trying Inserting {resource_url}')
-        return put_to_memcache(resource_url, data, retries=retries-1)
+        return write_data_to_cache(resource_url, data, retries=retries - 1)
     return
 
 

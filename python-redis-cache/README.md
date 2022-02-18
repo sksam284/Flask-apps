@@ -60,15 +60,10 @@ Install the Python requirements for the project
 
 ## Run the server
 
-`$ ./manage.py runserver`
+`$ python manage.py runserver`
 
-The server runs at `http://localhost:5000`
-
-
-## Start interactive shell
-
-`$ ./manage.py shell`
+The server runs at `http://localhost:6500`
 
 
 ## Api Docs (Swagger docs)
-Api docs will be served under `http://localhost:5000/apidocs/` after running the server
+Api docs will be served under `http://localhost:6500/apidocs/` after running the server

@@ -5,7 +5,7 @@ from flask_restful import Resource
 import os
 from . import app
 from app import constants as const
-from app.cache_util import get_from_memcache, put_to_memcache, get_namespace_keys, existing_key, invalidate_cache
+from app.cache_util import get_data_from_cache, write_data_to_cache, get_namespace_keys, existing_key, invalidate_cache
 
 # get logger
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class MasterDataApi(Resource):
     @swag_from(docs['GET'])
     def get(self, data_key):
         cache_key = const.CACHE_DATA_KEY.format(data_key)
-        data = get_from_memcache(cache_key)
+        data = get_data_from_cache(cache_key)
         if not data:
             return {"Message": "Key Doesn't exist in Cache"}, 404
         return data
@@ -36,13 +36,13 @@ class MasterDataApi(Resource):
                        "Updated": False,
                        "Message": "Key Does not exist."
                    }, 404
-        put_to_memcache(cache_key, data=data)
+        write_data_to_cache(cache_key, data=data)
         return {"Updated": True}
 
     @swag_from(docs['DELETE'])
     def delete(self, data_key):
         cache_key = const.CACHE_DATA_KEY.format(data_key)
-        keys = invalidate_cache(cache_key)
+        keys = invalidate_cache([cache_key])
         if not keys:
             return {"Message": "Keys Not found in Cache"}, 404
 
@@ -78,6 +78,6 @@ class MasterDataCreateApi(Resource):
                 "Created": False,
                 "Message": "Key Already exist."
             }, 422
-        put_to_memcache(cache_key, data=data['data'])
+        write_data_to_cache(cache_key, data=data['data'])
         return {"Created": True}
 

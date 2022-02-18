@@ -25,5 +25,3 @@ app_redis_handler = redis.Redis(
     REDIS_DB,
     encoding='utf-8',
     decode_responses=True)
-
-print(dir(redis.Redis))
